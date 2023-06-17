@@ -72,3 +72,8 @@ tasks.withType<Test> {
         events = setOf(TestLogEvent.PASSED, TestLogEvent.FAILED)
     }
 }
+
+extensions.findByName("buildScan")?.withGroovyBuilder {
+    setProperty("termsOfServiceUrl", "https://gradle.com/terms-of-service")
+    setProperty("termsOfServiceAgree", "yes")
+}

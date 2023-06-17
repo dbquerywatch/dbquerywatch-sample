@@ -9,11 +9,17 @@ plugins {
     id("io.freefair.lombok") version "8.0.1"
     id("io.spring.dependency-management") version "1.1.0"
     id("org.springframework.boot") version "2.7.12"
+
+    id("flyway-jooq")
 }
 
 group = "com.parolisoft"
 version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_1_8
+
+val jooqVersion: String by project
+ext["jooq.version"] = jooqVersion
+val testcontainersVersion: String by project
 
 repositories {
     mavenCentral()
@@ -22,7 +28,7 @@ repositories {
 dependencyManagement {
     dependencies {
         imports {
-            mavenBom("org.testcontainers:testcontainers-bom:1.18.3")
+            mavenBom("org.testcontainers:testcontainers-bom:$testcontainersVersion")
         }
         dependencySet("org.mapstruct:1.5.5.Final") {
             entry("mapstruct")
@@ -36,9 +42,10 @@ dependencies {
     annotationProcessor("org.mapstruct", "mapstruct-processor")
 
     implementation("com.google.code.findbugs", "jsr305", "3.0.2")
+    implementation("org.jooq", "jooq")
     implementation("org.springframework.boot", "spring-boot")
-    implementation("org.springframework.boot", "spring-boot-starter-data-jpa")
-    implementation("org.springframework.boot", "spring-boot-starter-data-rest")
+    implementation("org.springframework.boot", "spring-boot-starter-jooq")
+    implementation("org.springframework.boot", "spring-boot-starter-web")
 
     runtimeOnly("org.flywaydb", "flyway-core")
     runtimeOnly("org.postgresql", "postgresql")

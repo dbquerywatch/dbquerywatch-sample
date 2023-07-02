@@ -14,9 +14,6 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import org.testcontainers.containers.PostgreSQLContainer;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import static java.util.Collections.singletonMap;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -51,7 +48,7 @@ public class MockMvcIntegrationTests {
     @Test
     void should_find_article_by_author_last_name() throws Exception {
         mvc.perform(post("/articles/query")
-                .content(new JSONObject(singletonMap("author_last_name", "Parnas")).toString())
+                .content(new JSONObject().put("author_last_name", "Parnas").toString())
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
             )
@@ -65,11 +62,8 @@ public class MockMvcIntegrationTests {
 
     @Test
     void should_find_article_by_year_range() throws Exception {
-        Map<String, Object> payload = new HashMap<>();
-        payload.put("from_year", 1970);
-        payload.put("to_year", 1980);
         mvc.perform(post("/articles/query")
-                .content(new JSONObject(payload).toString())
+                .content(new JSONObject().put("from_year", 1970).put("to_year", 1980).toString())
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
             )

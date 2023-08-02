@@ -6,14 +6,14 @@ plugins {
     java
     application
 
-    id("io.freefair.lombok") version "8.0.1"
-    id("io.spring.dependency-management") version "1.1.0"
-    id("org.springframework.boot") version "2.7.12"
+    id("io.freefair.lombok") version "8.1.0"
+    id("io.spring.dependency-management") version "1.1.2"
+    id("org.springframework.boot") version "2.7.14"
 
     id("flyway-jooq")
 }
 
-group = "com.parolisoft"
+group = "org.dbquerywatch"
 version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 
@@ -50,7 +50,11 @@ dependencies {
     runtimeOnly("org.flywaydb", "flyway-core")
     runtimeOnly("org.postgresql", "postgresql")
 
-    testImplementation("com.parolisoft", "dbquerywatch", "1.1.0")
+    testImplementation("com.tngtech.archunit", "archunit-junit5", "1.0.1") {
+        exclude("org.slf4j", "slf4j-api")  // to avoid conflict with version 1.7.x from SB 2.x
+    }
+    testImplementation("com.parolisoft", "archunit-hexagonal", "0.1.0")
+    testImplementation("org.dbquerywatch", "dbquerywatch", "1.0.0")
     testImplementation("org.springframework.boot", "spring-boot-starter-test")
     testImplementation("org.testcontainers", "junit-jupiter")
     testImplementation("org.testcontainers", "postgresql")

@@ -51,7 +51,7 @@ configure<JooqExtension> {
                         inputSchema = "public"
                         excludes = "flyway_schema_history"
                     }
-                    target.packageName = "com.parolisoft.dbquerywatch.sample.jooq"
+                    target.packageName = "org.dbquerywatch.sample.jooq"
                 }
             }
         }
